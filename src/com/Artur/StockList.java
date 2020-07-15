@@ -1,7 +1,7 @@
 package com.Artur;
 
 import java.util.Collections;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class StockList {
@@ -9,7 +9,7 @@ public class StockList {
 
 
     public StockList() {
-        this.list = new HashMap<>();
+        this.list = new LinkedHashMap<>();
     }
 
     public int addStock(StockItem item){
@@ -60,7 +60,7 @@ public class StockList {
             double itemValue = stockItem.getPrice() * stockItem.QuantityInStock();
 
             s = s + stockItem + " . There are " + stockItem.QuantityInStock() + " in stock. Value of items: ";
-            s = s + itemValue + "\n";
+            s = s + String.format("%.2f", itemValue) + "\n";
             totalCost += itemValue;
         }
 
