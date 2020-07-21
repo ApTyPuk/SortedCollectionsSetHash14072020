@@ -11,6 +11,10 @@ public class Basket {
         this.list = new TreeMap<>();
     }
 
+    public String getName() {
+        return name;
+    }
+
     public int addToBasket(StockItem item, int quantity){
         if((item != null) && (quantity >0)){
             int inBasket = list.getOrDefault(item, 0);
@@ -24,13 +28,19 @@ public class Basket {
         return Collections.unmodifiableMap(list);
     }
 
+    public void checkOut(){
+        System.out.println("->The basket "+ this.name+" is checked out.");
+        list.clear();
+    }
+
+
     @Override
     public String toString() {
-        String s = "\nShopping basket " + name + " contains " + list.size() +
+        String s = "Shopping basket " + name + " contains " + list.size() +
                 ((list.size() == 1) ? " item" : " items") + "\n";
         double totalCost= 0.0;
         for(Map.Entry<StockItem, Integer> item : list.entrySet()){
-            s = s + item.getKey() + ". " +item.getValue() + " purchased\n";
+            s = s +"\t"+ item.getKey() + ". " +item.getValue() + " in basket\n";
             totalCost += item.getKey().getPrice() * item.getValue();
         }
         return s + "Total cost " + totalCost;

@@ -28,17 +28,17 @@ public class StockList {
         return 0; //Returning 0 to indicate that there was now stock movement.
     }
 
-    public int sellStock(String item, int quantity){
+    public int reserveStock(String item, int quantity){
         //Using just 'item' because it is already a string. And 'defaultedValue' to 'null' if it doesn't already
         //exists because we are selling stock. The assumption is that the stock item has to exist.
         StockItem inStock = list.getOrDefault(item, null);
 
-        if((inStock!=null) && (inStock.quantityInStock() >= quantity) && (quantity > 0)){
-            inStock.adjustStock(-quantity);
-            return quantity; //to indicate how many items we are getting out of stock.
+        if((inStock!=null) && (quantity > 0) && (inStock.reserve(quantity) != 0)){
+            return quantity; //to indicate how many items we are being reserved.
         }
-        return 0; //To indicate that nothing was taken out the stock.
+        return 0; //To indicate that nothing was was reserved.
     }
+
 
     public StockItem get(String key){
         return list.get(key);
