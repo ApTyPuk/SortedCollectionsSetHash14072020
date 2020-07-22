@@ -4,7 +4,7 @@ public class StockItem implements Comparable<StockItem> {
     private final String name;
     private double price;
     private int quantityStock;
-    private int reservedQuantity;
+    private int reservedQuantity = 0;
 
     public StockItem(String name, double price) {
         this.name = name;
@@ -46,8 +46,17 @@ public class StockItem implements Comparable<StockItem> {
             return 0;
         }else{
             this.reservedQuantity = i;
+            return i;
         }
-        return i;
+    }
+
+    public int unreserveItem(int quantity){
+        int i = this.reservedQuantity - quantity;
+        if((quantity > 0) && (i >=0)){
+            this.reservedQuantity = i;
+            return i;
+        }
+        return 0;
     }
 
     public void adjustStock(int quantity) {

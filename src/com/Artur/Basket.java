@@ -24,6 +24,23 @@ public class Basket {
         return 0;
     }
 
+    public int unreserve(StockItem item, int quantity){
+        if((item != null) && (quantity>0)){
+            int inBasket = list.getOrDefault(item, 0);
+            int delta = inBasket - quantity;
+            if((inBasket != 0) && (delta > 0)){
+                list.put(item, inBasket-quantity);
+                item.unreserveItem(quantity);
+                return delta;
+            }else if ((inBasket != 0) && (delta == 0)){
+                list.remove(item);
+                item.unreserveItem(quantity);
+                return 1;
+            }
+        }
+        return 0;
+    }
+
     public Map<StockItem,Integer> items(){
         return Collections.unmodifiableMap(list);
     }

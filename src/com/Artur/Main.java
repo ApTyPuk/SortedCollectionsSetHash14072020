@@ -45,13 +45,27 @@ public class Main {
 //        }
 
         Basket timsBasket = new Basket("Tim");
-        reserveItem(timsBasket, "car", 2);
+        reserveItem(timsBasket, "car", 1);
         reserveItem(timsBasket, "spanner", 5);
-        reserveItem(timsBasket, "juice", 36);
-        reserveItem(timsBasket, "juice", 1);
-        reserveItem(timsBasket, "cup", 12);
-        reserveItem(timsBasket, "bread", 1);
+        reserveItem(timsBasket, "juice", 17);
+//        reserveItem(timsBasket, "juice", 1);
+        reserveItem(timsBasket, "cup", 10);
+        reserveItem(timsBasket, "bread", 10);
+//        System.out.println(timsBasket);
+
+        Basket artursBasket = new Basket("Artur");
+        reserveItem(artursBasket, "car", 1);
+        reserveItem(artursBasket, "spanner", 5);
+        reserveItem(artursBasket, "juice", 17);
+//        reserveItem(artursBasket, "juice", 1);
+        reserveItem(artursBasket, "cup", 10);
+        reserveItem(artursBasket, "bread", 10);
+        unreserveItem(artursBasket, "bread", 10);
+        unreserveItem(artursBasket, "towel", 1);
         System.out.println(timsBasket);
+        System.out.println(artursBasket);
+
+
 
 //        System.out.println(stockList.toString());
 
@@ -68,17 +82,31 @@ public class Main {
         }
 
         checkOut(timsBasket);
+        checkOut(artursBasket);
+
         System.out.println(stockList.toString());
         System.out.println(timsBasket);
+        System.out.println(artursBasket);
 
+
+    }
+
+    public static void unreserveItem(Basket basket, String item, int quantity){
+        StockItem item1 = stockList.get(item);
+        if(basket.items().containsKey(item1)){
+            System.out.println("Unreserving "+item+" with -"+quantity);
+            basket.unreserve(item1, quantity);
+        }else {
+            System.out.println("Unable to unreserve " + item);
+        }
     }
 
     public static void checkOut(Basket basket){
         System.out.println("\n->Checking out:");
         System.out.println(basket.toString());
         for(Map.Entry<StockItem, Integer> basketItem : basket.items().entrySet()){
-            int basketQTY = basketItem.getKey().getReservedQuantity();
-//            System.out.println("Checking out " + basketItem.getKey().getName() + " "+ basketQTY +
+            int basketQTY = basketItem.getValue();
+//            System.out.println("Checking out " + basketItem.getValue() + " "+ basketQTY +
 //                    (basketQTY == 1 ? " pc." : " pcs."));
             basketItem.getKey().adjustStock(-basketQTY);
         }
