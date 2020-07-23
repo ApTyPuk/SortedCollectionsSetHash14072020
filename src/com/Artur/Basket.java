@@ -29,13 +29,13 @@ public class Basket {
             int inBasket = list.getOrDefault(item, 0);
             int delta = inBasket - quantity;
             if((inBasket != 0) && (delta > 0)){
-                list.put(item, inBasket-quantity);
+                list.put(item, delta);
                 item.unreserveItem(quantity);
-                return delta;
+                return quantity;
             }else if ((inBasket != 0) && (delta == 0)){
                 list.remove(item);
                 item.unreserveItem(quantity);
-                return 1;
+                return quantity;
             }
         }
         return 0;
